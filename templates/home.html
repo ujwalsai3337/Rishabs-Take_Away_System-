@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Rishab's Food Court</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/food.css') }}"/>
+    <style>
+      /* Added CSS styles for modified lines */
+      body {
+          background-color: #f1f1f1;
+          font-family: Arial, sans-serif;
+          margin: 0;
+          padding: 0;
+          background-image: url("/static/img/foods.jpg");
+          background-repeat: no-repeat;
+          background-size: cover;
+          background-position: center;
+        
+      }
+      footer {
+        background-color: #f5f5f5;
+        padding: 10px;
+        text-align: center;
+        font-size: 14px;
+      }
+
+      h1 {
+          text-align: center;
+          font-size: 36px;
+          color: #ffffff;
+          margin: 20px 0;
+          opacity: 0.9;
+      }
+      
+      nav {
+          background-color: #ff5500;
+          padding-top: 10px;
+          text-align: center;
+          padding-bottom: 10px;
+          margin-bottom: 70px;
+          height: 54px;
+          opacity: 0.9;
+      }
+      
+      nav ul {
+          list-style-type: none;
+          margin: 5px;
+          padding: 5px;
+      }
+      
+      nav ul li {
+          display: inline-block;
+          margin-right: 10px;
+      }
+      
+      nav ul li a {
+          color: #ffffff;
+          text-decoration: none;
+          padding: 10px 10px;
+          font-weight: bold;
+          text-transform: uppercase;
+      }
+      
+      .container {
+          max-width: 800px;
+          margin: 40px auto;
+          text-align: center;
+          padding: 40px;
+          background-color: #ffffff;
+          border-radius: 10px;
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+  
+  
+      p {
+          font-size: 20px;
+          margin-bottom: 20px;
+          color: #333333;
+      }
+  
+      .cta-button {
+          display: inline-block;
+          background-color: #ff5500;
+          color: #ffffff;
+          padding: 12px 30px;
+          font-size: 24px;
+          text-decoration: none;
+          border-radius: 6px;
+          transition: background-color 0.3s ease;
+      }
+  
+      .cta-button:hover {
+          background-color: #ff3300;
+      }
+
+      
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <h1>Welcome to Rishab's Food Court</h1>
+</head>
+<body>
+  <nav>
+    <ul>
+      <li><a href="/home">Home</a></li>
+      <li><a href="/dashboard">Menu</a></li>
+      <li><a href="/contact">Contacts</a></li>
+      <li><a href="/">Logout</a></li> 
+      <li><a href="/aboutpage">About</a></li>
+    </ul>
+  </nav>
+  <div class="picture">
+    <div class="container">
+      <h1 style="color: #ff5500;">Welcome to Rishab's Food Court</h1>
+      <p>Delicious Food Available</p>
+      <p>Discover a wide range of mouth-watering dishes from our menu and enjoy your time with your friends</p>
+      <a class="cta-button" href="lunch.html">View Menu</a>
+    </div>
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+</head>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        background-image: url("/static/img/foods.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+    }
+
+    .container {
+        background-color: #ffffff;
+        border-radius: 10px;
+        padding: 30px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+
+    h2 {
+        color: #5cc015d1;
+        margin-bottom: 20px;
+    }
+
+    .username,
+    .password {
+        width: 270px;
+        margin: 10px auto;
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    .button {
+        background-color: #5cc015d1;
+        color: #ffffff;
+        border: none;
+        padding: 10px 30px;
+        font-size: 18px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .button:hover {
+        background-color: #5cc015;
+    }
+
+    p {
+        margin-top: 20px;
+        font-size: 14px;
+    }
+
+    a {
+        color: #5cc015d1;
+        text-decoration: none;
+    }
+</style>
+<body>
+    <div class="container">
+        <h2>FOODIE</h2>
+        <form action="{{ url_for('login') }}" method="POST">
+            <input class="username" id="username" type="text" placeholder="Phone number" name="username" required>
+            <br>
+            <input class="password" id="password" type="password" placeholder="Password" name="password" required>
+            <br>
+            <input class="button" type="submit" value="Login">
+        </form>
+        <p>Create an account? <a href="{{ url_for('signup') }}">Click here</a></p>
+    </div>
+</body>
+</html>

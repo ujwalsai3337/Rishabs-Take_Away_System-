@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>RISHABS FOOD COURT</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/food.css') }}"/>
+    <style>
+      /* Added CSS styles for modified lines */
+      body {
+          background-color: #f1f1f1;
+          font-family: Arial, sans-serif;
+          background-image: url("/static/img/foods.jpg");
+          background-repeat: no-repeat;
+          background-size: cover;
+          background-position: center;
+          margin: 0;
+          padding: 0;
+      }
+      
+      h1 {
+          text-align: center;
+          font-size: 36px;
+          color: #ffffff;
+          margin: 20px 0;
+          opacity: 0.9;
+      }
+      
+      nav {
+          background-color: #ff5500;
+          padding-top: 10px;
+          text-align: center;
+          padding-bottom: 10px;
+          margin-bottom: 30px;
+          height: 54px;
+          opacity: 0.9;
+      }
+      
+      nav ul {
+          list-style-type: none;
+          margin: 5px;
+          padding: 5px;
+      }
+      
+      nav ul li {
+          display: inline-block;
+          margin-right: 10px;
+      }
+      
+      nav ul li a {
+          color: #ffffff;
+          text-decoration: none;
+          padding: 10px 10px;
+          font-weight: bold;
+          text-transform: uppercase;
+      }
+      
+      .container {
+          max-width: 2000px;
+          margin: 40px auto;
+          text-align: center;
+          padding: 40px;
+          background-color: #ffffff;
+          border-radius: 10px;
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+  
+      p {
+          font-size: 20px;
+          margin-bottom: 20px;
+          color: #333333;
+      }
+  
+      .cta-button {
+          display: inline-block;
+          background-color: #ff5500;
+          color: #ffffff;
+          padding: 12px 30px;
+          font-size: 24px;
+          text-decoration: none;
+          border-radius: 6px;
+          transition: background-color 0.3s ease;
+      }
+  
+      .cta-button:hover {
+          background-color: #ff3300;
+      }
+
+      /* Styles for the second page */
+      header {
+        background-color: #ffffff;
+        padding: 20px;
+        text-align: center;
+        margin: 0;
+      }
+
+      main {
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: calc(100vh - 120px);
+      }
+
+      h2 {
+        color: #ee0e24;
+        font-size: 24px;
+        margin-bottom: 10px;
+      }
+
+      section {
+        margin-bottom: 20px;
+      }
+
+      p {
+        margin: 0;
+      }
+
+      footer {
+        background-color: #f5f5f5;
+        padding: 10px;
+        text-align: center;
+        font-size: 14px;
+      }
+
+      a {
+        color: #ee0e24;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+      .cbutton {
+          width: 120px;
+          height: 40px;
+          display: inline-block;
+          background-color: #ff5500;
+          color: #ffffff;
+          text-align: center;
+          padding-top: 5px;
+          font-size: 20px;
+          text-decoration: none;
+          border-radius: 6px;
+          transition: background-color 0.3s ease;
+      }
+  
+      .cbutton:hover {
+          background-color: #ff3300;
+      }
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <h1>Contact Us</h1>
+  <nav>
+    <ul>
+      <li><a href="/home">Home</a></li>
+      <li><a href="/dashboard">Menu</a></li>
+      <li><a href="/contact">Contacts</a></li>
+      <li><a href="/">Logout</a></li> 
+      <li><a href="/aboutpage">About</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <div class="container">
+      <section>
+        <h2>Visit Us</h2>
+        <p>123 Main Street<br>
+          City, State ZIP</p>
+      </section>
+
+      <section>
+        <h2>Call Us</h2>
+        <p>Phone: 123-456-7890</p>
+        <p>Fax: 123-456-7891</p>
+      </section>
+
+      <section>
+        <h2>Email Us</h2>
+        <p>Email: info@therestaurant.com</p>
+      </section>
+
+      <section>
+        <h2>Opening Hours</h2>
+        <p>Monday - Sunday: 7:30am - 9am</p>
+      </section>
+
+      <section>
+        <h2>Find Us on Map</h2>  
+        <a class="cbutton" href="https://www.google.com/maps/place/Satyas+Cafe+:Snacks+and+Beverages/@12.7509519,80.1953652,19.12z/data=!4m14!1m7!3m6!1s0x3a52512f04729e11:0xbc4ea0ae50ca1aaa!2sSri+Sivasubramaniya+Nadar+College+of+Engineering!8m2!3d12.7517236!4d80.2033321!16zL20vMDhxMGQy!3m5!1s0x3a52512e4649c9ef:0xb22695f80c3d13e6!8m2!3d12.7509993!4d80.1950801!16s%2Fg%2F11_t0lk1m?entry=ttu">Find in Map</a>      
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2023 The Restaurant. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>

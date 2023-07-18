@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Food Production Department</title>
+  <style>
+     body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      font-family: Arial, sans-serif;
+        background-image: url("/static/img/foods.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+      background-color: #f5f5f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+  
+    .container {
+      display: flex;
+    }
+  
+    .food-container,
+    .customer-container {
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 6px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      margin-right: 20px;
+      width: 600px;
+    }
+  
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+  
+    th,
+    td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #dddddd;
+    }
+  
+    .food-item button {
+      background-color: #ff5500;
+      color: #ffffff;
+      padding: 5px 10px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  
+    .food-item button:hover {
+      background-color: #ff3300;
+    }
+
+    .food-item .delete-button {
+      background-color: #ff0000;
+    }
+
+    .food-item .delete-button.hidden {
+      display: none;
+    }
+  </style>  
+</head>
+<body>
+  <div class="container">
+    <div class="food-container">
+      <h2 style="text-align: center; color: #ff5500;">Food Production Department</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Food Item</th>
+            <th>Quantity</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for food_item in food_items %}
+          <tr class="food-item" id="{{ food_item.item_name }}-row">
+            <td>{{ food_item.item_name }}</td>
+            <td id="{{ food_item.item_name }}-quantity">{{ food_item.quantity }}</td>
+            <td>
+              <button onclick="decreaseQuantity('{{ food_item.item_name }}')">Decrease</button>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="customer-container">
+      <h2 style="text-align: center; color: #ff5500;">Customer Details</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Customer ID</th>
+            <th>Food Item</th>
+            <th>Quantity</th>
+            <th>Verification</th>
+            <th>Option</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        
+          <tbody>
+            {% for customer in customers %}
+            {% for order in customer.orders %}
+            <tr id="order-{{ customer.customer_id }}-{{ loop.index }}">
+              <td>{{ customer.customer_id }}</td>
+              <td>{{ order.item_name }}</td>
+              <td>{{ order.quantity }}</td>
+              <td>{{ order.Verification }}</td>
+              <td>{{ order.Option }}</td>
+              <td>
+                <button class="send-button" onclick="sendRequest('{{ customer.customer_id }}', '{{ loop.index }}')">Send</button>
+                <button class="delete-button" onclick="deleteRow('{{ customer.customer_id }}', '{{ loop.index }}')">Delete</button>
+              </td>
+            </tr>
+            {% endfor %}
+            {% endfor %}
+          </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+
+      function sendRequest(customerId, orderIndex) {
+            const sendButton = document.getElementById(`order-${customerId}-${orderIndex}`).querySelector('.send-button');
+            sendButton.disabled = true;
+
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', '/process_order', true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.onreadystatechange = function () {
+              if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                // Request completed successfully
+                const response = JSON.parse(xhr.responseText);
+                // Do something with the response
+                console.log(response);
+              }
+            };
+
+            const data = JSON.stringify({ customer_id: customerId });
+            xhr.send(data);
+          }
+    // Function to decrease the quantity and update the row
+    function decreaseQuantity(itemName) {
+      const quantityElement = document.getElementById(itemName + '-quantity');
+      let currentQuantity = parseInt(quantityElement.textContent);
+      if (currentQuantity > 0) {
+        currentQuantity--;
+        quantityElement.textContent = currentQuantity;
+      }
+    }
+
+    // Function to delete the row
+    function deleteRow(customerId, orderIndex) {
+        const row = document.getElementById(`order-${customerId}-${orderIndex}`);
+        row.parentNode.removeChild(row);
+
+        // Send AJAX request to delete the order
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', '/process_order', true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+            // Request completed successfully
+            const response = JSON.parse(xhr.responseText);
+            // Do something with the response
+            console.log(response);
+          }
+        };
+
+        const data = JSON.stringify({ customer_id: customerId, item_name: row.cells[1].textContent });
+        xhr.send(data);
+      }
+
+
+    // Function to load the customer details from local storage
+    function loadCustomerDetails() {
+      const customerTableBody = document.getElementById('customer-table-body');
+      const orders = JSON.parse(localStorage.getItem('orders')) || [];
+
+      orders.forEach(function (order) {
+        const { customerId, item_name, quantity, Verification, Option } = order;
+        const orderIndex = customerTableBody.childElementCount;
+
+        const row = document.createElement('tr');
+        row.id = `order-${customerId}-${orderIndex}`;
+        row.innerHTML = `
+          <td>${customerId}</td>
+          <td>${item_name}</td>
+          <td>${quantity}</td>
+          <td>${Verification}</td>
+          <td>${Option}</td>
+          <td>
+            <button class="send-button" onclick="sendRequest('${customerId}', '${orderIndex}')">Send</button>
+            <button class="delete-button" onclick="deleteRow('${customerId}', '${orderIndex}')">Delete</button>
+          </td>
+        `;
+
+        customerTableBody.appendChild(row);
+      });
+    }
+
+    // Load the customer details on page load
+    window.addEventListener('load', loadCustomerDetails);
+  </script>
+</body>
+</html>
+

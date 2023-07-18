@@ -1,0 +1,773 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>RISHABS FOOD COURT</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/food.css') }}"/>
+    <style>
+       body {
+          background-color: #f1f1f1;
+          font-family: Arial, sans-serif;
+          margin: 0;
+          padding: 0;
+      }
+      
+      h1 {
+          text-align: center;
+          font-size: 36px;
+          color: #ff5500;
+          margin: 20px 0;
+      }
+      
+      nav {
+          background-color: #ff5500;
+          padding-top: 10px;
+          text-align: center;
+          padding-bottom: 10px;
+          margin-bottom: 70px;
+          height: 40px;
+      }
+      
+      nav ul {
+          list-style-type: none;
+          margin: 5px;
+          padding: 5px;
+      }
+      
+      nav ul li {
+          display: inline-block;
+          margin-right: 10px;
+      }
+      
+      nav ul li a {
+          color: #ffffff;
+          text-decoration: none;
+          padding: 10px 10px;
+          font-weight: bold;
+          text-transform: uppercase;
+      }
+      
+      .items {
+          display: flex;
+          overflow-x: scroll;
+          scroll-snap-type: x mandatory;
+          scroll-padding: 10px;
+          gap: 20px;
+          padding: 20px;
+      }
+      
+      .item {
+          scroll-snap-align: start;
+          flex: 0 0 auto;
+          width: 250px;
+          text-align: center;
+      }
+      
+      .item img {
+          height: 200px;
+          width: 250px;
+          border-radius: 10px;
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+          object-fit: cover;
+      }
+      
+      .item h4 {
+          font-weight: bold;
+          margin: 10px 0 5px;
+          font-size: 18px;
+      }
+      
+      .item h4 span {
+          font-weight: normal;
+          font-size: 14px;
+      }
+      
+      .item div {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-top: 10px;
+      }
+      
+      .item button {
+          background-color: #ff5500;
+          color: #ffffff;
+          padding: 5px 10px;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+          margin: 0 5px;
+          font-size: 14px;
+      }
+      
+      .item button:hover {
+          background-color: #ff3300;
+      }
+      
+      button {
+          background-color: #ff5500;
+          color: #ffffff;
+          padding: 10px 20px;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+          display: block;
+          margin: 20px auto;
+          font-size: 18px;
+      }
+      
+      button:hover {
+          background-color: #ff3300;
+      }
+      
+      .scroll-button {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          width: 40px;
+          height: 40px;
+          background-color: #ffffff;
+          border: none;
+          border-radius: 50%;
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+          cursor: pointer;
+      }
+      
+      .scroll-button:hover {
+          background-color: #f1f1f1;
+      }
+      
+      .scroll-button img {
+          display: block;
+          margin: auto;
+          height: 20px;
+          width: 20px;
+      }
+      
+      .scroll-button-left {
+          left: 10px;
+          margin-right: 30px;
+      }
+      
+      .scroll-button.right {
+          right: 10px;
+          margin-left: 30px;
+      }
+
+      footer {
+        background-color: #f5f5f5;
+        padding: 10px;
+        text-align: center;
+        font-size: 14px;
+      }
+      #navga {
+        background-color: #ff5500;
+        padding: 7px;
+        height: 50px;
+      }
+      .order-summary-table {
+    margin-top: 20px;
+    width: 100%;
+}
+
+.order-summary-table {
+    margin-top: 20px;
+    width: 100%;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.order-summary-table th,
+.order-summary-table td {
+    padding: 10px;
+    text-align: left;
+}
+
+.order-summary-table th {
+    font-weight: bold;
+    background-color: #f1f1f1;
+}
+
+.order-summary-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+.select-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.select-container select {
+  border: none;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  padding: 8px 15px;
+  font-size: 16px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  margin: 0 10px;
+}
+
+.select-container select:focus {
+  outline: none;
+}
+
+.select-container select option {
+  padding: 10px;
+}
+
+
+  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <h1>RISHABS FOOD COURT</h1>
+</head>
+<nav id="navga">
+    <ul>
+        <li><a href="/home">Home</a></li>
+      <li><a href="/dashboard">Menu</a></li>
+      <li><a href="/contact">Contacts</a></li>
+      <li><a href="/">Logout</a></li> 
+      <li><a href="/aboutpage">About</a></li>
+    </ul>
+</nav>
+<body>
+  <section>
+    <section class="items">
+        <div class="item">
+            <img src="{{ url_for('static', filename='img/chickenfriedrice.jpg') }}" height="200" width="250">
+            <h4>Chicken Fried Rice - <span>100 rupees</span></h4> 
+            <div>
+                <button onclick="decreaseQuantity('chickenfriedrice')">-</button>
+                <span id="chickenfriedrice-quantity">0</span>
+                <button onclick="increaseQuantity('chickenfriedrice')">+</button>
+            </div>
+        </div>
+    
+        <div class="item">  
+            <img src="{{ url_for('static', filename='img/chickenbiriyani.jpg') }}" height="200" width="250">
+            <h4>Chicken Biriyani - <span>150 rupees</span></h4>
+            <div>
+                <button onclick="decreaseQuantity('chickenbiriyani')">-</button>
+                <span id="chickenbiriyani-quantity">0</span>
+                <button onclick="increaseQuantity('chickenbiriyani')">+</button>
+            </div>
+        </div>
+    
+        <div class="item">  
+            <img src="{{ url_for('static', filename='img/parottapannerbuttermasala.jpg') }}" height="200" width="250">
+            <h4>Parota Panner Butter masala - <span>120 rupees</span></h4>
+            <div>
+                <button onclick="decreaseQuantity('parota')">-</button>
+                <span id="parota-quantity">0</span>
+                <button onclick="increaseQuantity('parota')">+</button>
+            </div>
+        </div>
+    
+        <div class="item">  
+            <img src="{{ url_for('static', filename='img/chilliparotta.jpg') }}" height="200" width="250">
+            <h4>Chilli Parotta - <span>90 rupees</span></h4>
+            <div>
+                <button onclick="decreaseQuantity('chilliparotta')">-</button>
+                <span id="chilliparotta-quantity">0</span>
+                <button onclick="increaseQuantity('chilliparotta')">+</button>
+            </div>
+        </div>
+    
+        <div class="item">  
+            <img src="{{ url_for('static', filename='img/chappathiguruma.jpg') }}" height="200" width="250">
+            <h4>Chapathi with Guruma - <span>45 rupees</span></h4>
+            <div>
+                <button onclick="decreaseQuantity('chappathiguruma')">-</button>
+                <span id="chappathiguruma-quantity">0</span>
+                <button onclick="increaseQuantity('chappathiguruma')">+</button>
+            </div>
+        </div>
+    
+        <div class="item">  
+            <img src="{{ url_for('static', filename='img/cholapuri.jpg') }}" height="200" width="250">
+            <h4>Chola Puri  - <span>60 rupees</span></h4>
+            <div>
+                <button onclick="decreaseQuantity('cholapuri')">-</button>
+                <span id="cholapuri-quantity">0</span>
+                <button onclick="increaseQuantity('cholapuri')">+</button>
+            </div>
+        </div>
+    
+        <div class="item">
+            <img src="{{ url_for('static', filename='img/vegpulao.jpg') }}" height="200" width="250">
+            <h4>Veg Pulao - <span>80 rupees</span></h4> 
+            <div>
+                <button onclick="decreaseQuantity('vegpulao')">-</button>
+                <span id="vegpulao-quantity">0</span>
+                <button onclick="increaseQuantity('vegpulao')">+</button>
+            </div>
+        </div>
+    
+        <div class="item">  
+            <img src="{{ url_for('static', filename='img/chickennoodles.jpg') }}" height="200" width="250">
+            <h4>Chicken Noodles - <span>150 rupees</span></h4>
+            <div>
+                <button onclick="decreaseQuantity('chickennoodles')">-</button>
+                <span id="chickennoodles-quantity">0</span>
+                <button onclick="increaseQuantity('chickennoodles')">+</button>
+            </div>
+        </div>
+    
+        <div class="item">  
+            <img src="{{ url_for('static', filename='img/vegmeals.jpg') }}" height="200" width="250">
+            <h4>Veg Meals  - <span>70 rupees</span></h4>
+            <div>
+                <button onclick="decreaseQuantity('vegmeals')">-</button>
+                <span id="vegmeals-quantity">0</span>
+                <button onclick="increaseQuantity('vegmeals')">+</button>
+            </div>
+        </div>
+    
+        <div class="item">  
+            <img src="{{ url_for('static', filename='img/nonvegmeals.jpg') }}" height="200" width="250">
+            <h4>Non Veg Meals - <span>120 rupees</span></h4>
+            <div>
+                <button onclick="decreaseQuantity('nonvegmeals')">-</button>
+                <span id="nonvegmeals-quantity">0</span>
+                <button onclick="increaseQuantity('nonvegmeals')">+</button>
+            </div>
+        </div>
+    </section>
+    <section class="items">
+        <div class="item">  
+            <img src="{{ url_for('static', filename='img/watermelonjuice.jpg') }}" height="200" width="250">
+            <h4>Watermelon Juice - <span>40 rupees</span></h4>
+            <div class="quantity-control">
+                <button onclick="decreaseQuantity('watermelonjuice')">-</button>
+                <span id="watermelonjuice-quantity">0</span>
+                <button onclick="increaseQuantity('watermelonjuice')">+</button>
+            </div>
+        </div>
+    
+        <div class="item">  
+            <img src="{{ url_for('static', filename='img/orangejuice.jpg') }}" height="200" width="250">
+            <h4>Orange Juice - <span>50 rupees</span></h4>
+            <div class="quantity-control">
+                <button onclick="decreaseQuantity('orangejuice')">-</button>
+                <span id="orangejuice-quantity">0</span>
+                <button onclick="increaseQuantity('orangejuice')">+</button>
+            </div>
+        </div>
+    
+        <div class="item">  
+            <img src="{{ url_for('static', filename='img/muskmelonjuice.jpg') }}" height="200" width="250">
+            <h4>Muskmelon Juice - <span>50 rupees</span></h4>
+            <div class="quantity-control">
+                <button onclick="decreaseQuantity('muskmelonjuice')">-</button>
+                <span id="muskmelonjuice-quantity">0</span>
+                <button onclick="increaseQuantity('muskmelonjuice')">+</button>
+            </div>
+        </div>
+    
+        <div class="item">  
+            <img src="{{ url_for('static', filename='img/lemonjuice.jpg') }}" height="200" width="250">
+            <h4>Lemon Juice - <span>20 rupees</span></h4>
+            <div class="quantity-control">
+                <button onclick="decreaseQuantity('lemonjuice')">-</button>
+                <span id="lemonjuice-quantity">0</span>
+                <button onclick="increaseQuantity('lemonjuice')">+</button>
+            </div>
+        </div>
+    
+        <div class="item">  
+            <img src="{{ url_for('static', filename='img/mangojuice.jpg') }}" height="200" width="250">
+            <h4>Mango Juice - <span>45 rupees</span></h4>
+            <div class="quantity-control">
+                <button onclick="decreaseQuantity('mangojuice')">-</button>
+                <span id="mangojuice-quantity">0</span>
+                <button onclick="increaseQuantity('mangojuice')">+</button>
+            </div>
+        </div>
+    
+        <div class="item">  
+            <img src="{{ url_for('static', filename='img/badammilk.jpg') }}" height="200" width="250">
+            <h4>Badam Milk - <span>40 rupees</span></h4>
+            <div class="quantity-control">
+                <button onclick="decreaseQuantity('badammilk')">-</button>
+                <span id="badammilk-quantity">0</span>
+                <button onclick="increaseQuantity('badammilk')">+</button>
+            </div>
+        </div>
+    
+        <div class="item">  
+            <img src="{{ url_for('static', filename='img/rosemilk.jpg') }}" height="200" width="250">
+            <h4>Rose Milk - <span>40 rupees</span></h4>
+            <div class="quantity-control">
+                <button onclick="decreaseQuantity('rosemilk')">-</button>
+                <span id="rosemilk-quantity">0</span>
+                <button onclick="increaseQuantity('rosemilk')">+</button>
+            </div>
+        </div>
+    
+        <div class="item">  
+            <img src="{{ url_for('static', filename='img/pomegranatejuice.jpeg') }}" height="200" width="250">
+            <h4>Pomegranate Juice - <span>55 rupees</span></h4>
+            <div class="quantity-control">
+                <button onclick="decreaseQuantity('pomegranatejuice')">-</button>
+                <span id="pomegranatejuice-quantity">0</span>
+                <button onclick="increaseQuantity('pomegranatejuice')">+</button>
+            </div>
+        </div>
+    
+        <div class="item">  
+            <img src="{{ url_for('static', filename='img/pineapplejuice.jpg') }}" height="200" width="250">
+            <h4>Pineapple Juice - <span>40 rupees</span></h4>
+            <div class="quantity-control">
+                <button onclick="decreaseQuantity('pineapplejuice')">-</button>
+                <span id="pineapplejuice-quantity">0</span>
+                <button onclick="increaseQuantity('pineapplejuice')">+</button>
+            </div>
+        </div>
+  
+  <div class="item">
+    <img src="{{ url_for('static', filename='img/icetea.jpg') }}" height="200" width="250">
+    <h4>Icetea - <span>35 rupees</span></h4>
+    <div class="quantity-control">
+      <button onclick="decreaseQuantity('icetea')">-</button>
+      <span id="icetea-quantity">0</span>
+      <button onclick="increaseQuantity('icetea')">+</button>
+    </div>
+  </div>      
+</section>
+<section class="items">
+    <div class="item">
+        <img src="{{ url_for('static', filename='img/idly.jpg') }}" height="200" width="250">
+        <h4>Idly</h4>
+        <p>25 rupees</p>
+        <div class="quantity-control">
+          <button onclick="decreaseQuantity('idly')">-</button>
+          <span id="idly-quantity">0</span>
+          <button onclick="increaseQuantity('idly')">+</button>
+        </div>
+      </div>
+      
+      <div class="item">
+        <img src="{{ url_for('static', filename='img/plaindosa.jpg') }}" height="200" width="250">
+        <h4>Plain Dosa</h4>
+        <p>30 rupees</p>
+        <div class="quantity-control">
+          <button onclick="decreaseQuantity('plaindosa')">-</button>
+          <span id="plaindosa-quantity">0</span>
+          <button onclick="increaseQuantity('plaindosa')">+</button>
+        </div>
+      </div>
+      
+      <div class="item">
+        <img src="{{ url_for('static', filename='img/gheeroast.jpg') }}" height="200" width="250">
+        <h4>Ghee Roast</h4>
+        <p>50 rupees</p>
+        <div class="quantity-control">
+          <button onclick="decreaseQuantity('gheeroast')">-</button>
+          <span id="gheeroast-quantity">0</span>
+          <button onclick="increaseQuantity('gheeroast')">+</button>
+        </div>
+      </div>
+      
+      <div class="item">
+        <img src="{{ url_for('static', filename='img/pannerdosa.jpg') }}" height="200" width="250">
+        <h4>Panner Dosa</h4>
+        <p>55 rupees</p>
+        <div class="quantity-control">
+          <button onclick="decreaseQuantity('pannerdosa')">-</button>
+          <span id="pannerdosa-quantity">0</span>
+          <button onclick="increaseQuantity('pannerdosa')">+</button>
+        </div>
+      </div>
+      
+      <div class="item">
+        <img src="{{ url_for('static', filename='img/masaladosa.jpg') }}" height="200" width="250">
+        <h4>Masala Dosa</h4>
+        <p>45 rupees</p>
+        <div class="quantity-control">
+          <button onclick="decreaseQuantity('masaladosa')">-</button>
+          <span id="masaladosa-quantity">0</span>
+          <button onclick="increaseQuantity('masaladosa')">+</button>
+        </div>
+      </div>
+    
+  
+  <div class="item">
+    <img src="{{ url_for('static', filename='img/ravadosa.jpg') }}" height="200" width="250">
+    <h4>Rava Dosa</h4>
+    <p>45 rupees</p>
+    <div class="quantity-control">
+      <button onclick="decreaseQuantity('ravadosa')">-</button>
+      <span id="ravadosa-quantity">0</span>
+      <button onclick="increaseQuantity('ravadosa')">+</button>
+    </div>
+  </div>
+  
+  <div class="item">
+    <img src="{{ url_for('static', filename='img/vegmaggie.jpg') }}" height="200" width="250">
+    <h4>Veg Maggie</h4>
+    <p>55 rupees</p>
+    <div class="quantity-control">
+      <button onclick="decreaseQuantity('vegmaggie')">-</button>
+      <span id="vegmaggie-quantity">0</span>
+      <button onclick="increaseQuantity('vegmaggie')">+</button>
+    </div>
+  </div>
+  
+  <div class="item">
+    <img src="{{ url_for('static', filename='img/minibreakfast.jpg') }}" height="200" width="250">
+    <h4>Mini Breakfast</h4>
+    <p>55 rupees</p>
+    <div class="quantity-control">
+      <button onclick="decreaseQuantity('minibreakfast')">-</button>
+      <span id="minibreakfast-quantity">0</span>
+      <button onclick="increaseQuantity('minibreakfast')">+</button>
+    </div>
+  </div>
+  
+  <div class="item">
+    <img src="{{ url_for('static', filename='img/pongalwithvada.jpg') }}" height="200" width="250">
+    <h4>Pongal with Vada</h4>
+    <p>60 rupees</p>
+    <div class="quantity-control">
+      <button onclick="decreaseQuantity('pongalwithvada')">-</button>
+      <span id="pongalwithvada-quantity">0</span>
+      <button onclick="increaseQuantity('pongalwithvada')">+</button>
+    </div>
+  </div>
+  
+  <div class="item">
+    <img src="{{ url_for('static', filename='img/pooriwithchanna.jpg') }}" height="200" width="250">
+    <h4>Poori with Channa</h4>
+    <p>40 rupees</p>
+    <div class="quantity-control">
+      <button onclick="decreaseQuantity('pooriwithchanna')">-</button>
+      <span id="pooriwithchanna-quantity">0</span>
+      <button onclick="increaseQuantity('pooriwithchanna')">+</button>
+    </div>
+  </div>
+        
+</section>
+<h1 style="font-size: 30px; margin: 0; padding: 20px;">YOUR ORDERS</h1>
+<table id="order-summary-table" class="order-summary-table">
+    <thead>
+      <tr>
+        <th>Item</th>
+        <th>Quantity</th>
+        <th>Price/item</th>
+        <th>Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- The table will be dynamically updated by JavaScript -->
+    </tbody>
+  </table>
+  <div class="select-container">
+    <select id="option">
+      <option value="to_eat">To Eat</option>
+      <option value="parcel">Parcel</option>
+    </select>
+    
+    <select id="payment">
+      <option value="upi">UPI</option>
+    </select>
+    
+  </div>
+  
+<button onclick="submitOrder()">Submit Order</button>
+<footer>
+    <p>&copy; 2023 The Restaurant. All rights reserved.</p>
+  </footer>
+<script>
+const order = {}; // JavaScript object to store ordered items, quantities, and prices
+
+function increaseQuantity(item) {
+  const quantityElement = document.getElementById(`${item}-quantity`);
+  const quantity = parseInt(quantityElement.textContent) + 1;
+  quantityElement.textContent = quantity;
+
+  order[item] = {
+    quantity: quantity,
+    price: getPrice(item), // Get the price for the item
+  }; // Store the item, quantity, and price in the order object
+
+  updateOrderSummary();
+}
+
+function decreaseQuantity(item) {
+  const quantityElement = document.getElementById(`${item}-quantity`);
+  let quantity = parseInt(quantityElement.textContent) - 1;
+  quantity = Math.max(quantity, 0);
+  quantityElement.textContent = quantity;
+
+  order[item] = {
+    quantity: quantity,
+    price: getPrice(item), // Get the price for the item
+  }; // Store the item, quantity, and price in the order object
+
+  updateOrderSummary();
+}
+
+function updateOrderSummary() {
+  const orderSummaryTable = document.getElementById('order-summary-table');
+  const orderSummaryBody = orderSummaryTable.querySelector('tbody');
+  orderSummaryBody.innerHTML = ''; // Clear the table body contents
+
+  let totalPrice = 0;
+
+  for (const item in order) {
+    const quantity = order[item].quantity;
+    const price = order[item].price;
+    const total = quantity * price;
+    totalPrice += total;
+
+    const row = document.createElement('tr');
+    const itemCell = document.createElement('td');
+    itemCell.textContent = item;
+    const quantityCell = document.createElement('td');
+    quantityCell.textContent = quantity;
+    const priceCell = document.createElement('td');
+    priceCell.textContent = price;
+    const totalCell = document.createElement('td');
+    totalCell.textContent = total;
+
+    row.appendChild(itemCell);
+    row.appendChild(quantityCell);
+    row.appendChild(priceCell);
+    row.appendChild(totalCell);
+
+    orderSummaryBody.appendChild(row);
+  }
+
+  const totalRow = document.createElement('tr');
+  const totalLabelCell = document.createElement('td');
+  totalLabelCell.textContent = 'Total';
+  totalLabelCell.colSpan = 3;
+  const totalPriceCell = document.createElement('td');
+  totalPriceCell.textContent = totalPrice;
+  totalRow.appendChild(totalLabelCell);
+  totalRow.appendChild(totalPriceCell);
+
+  orderSummaryBody.appendChild(totalRow);
+}
+
+// Rest of your code...
+
+
+
+function getPrice(item) {
+    // Implement the logic to fetch the price for the item
+    // You can use an API call, retrieve it from a database, or define a price mapping
+
+    // Example: Assume there is a predefined price mapping object
+    const priceMapping = {
+        "chickenfriedrice" : 100,
+        "chickenbiriyani" : 150,
+        "parota" : 120,
+        "chilliparotta" : 90,
+        "chappathiguruma" : 45,
+        "cholapuri" : 60,
+        "vegpulao" : 80,
+        "chickennoodles" : 150,
+        "vegmeals" : 70,
+        "nonvegmeals" : 120,
+        "watermelonjuice" : 40,
+        "orangejuice" : 50,
+        "muskmelonjuice" : 50,
+        "lemonjuice" : 20,
+        "mangojuice" : 45,
+        "badammilk" : 40,
+        "rosemilk" : 40,
+        "pomegranatejuice" : 55,
+        "pineapplejuice" : 40,
+        "icetea" : 35,
+        "idly" : 25,
+        "plaindosa" : 30,
+        "gheeroast" : 50,
+        "pannerdosa" : 55,
+        "masaladosa" : 45,
+        "ravadosa" : 45,
+        "vegmaggie" :55,
+        "minibreakfast" :55,
+        "pongalwithvada" :60,
+        "pooriwithchanna" :40
+    };
+
+    return priceMapping[item] || 0; // Return the price for the item, or 0 if not found
+}
+function submitOrder() {
+  const formData = new FormData();
+
+  // Get the selected option and payment values
+  const option = document.getElementById("option").value;
+  const payment = document.getElementById("payment").value;
+
+  // Add the option and payment values to the form data
+  formData.append("option", option);
+  formData.append("payment", payment);
+
+  // Add the ordered items, quantities, and prices to the form data
+  for (const item in order) {
+    formData.append("item", item);
+    formData.append("quantity", order[item].quantity);
+    formData.append("price", order[item].price);
+  }
+
+  fetch('/submit_order', {
+    method: 'POST',
+    body: formData
+  })
+    .then(response => response.json())
+    .then(data => {
+      console.log(data.message);
+      // Reset the order object and quantity display
+      for (const item in order) {
+        order[item] = {
+          quantity: 0,
+          price: 0
+        };
+        const quantityElement = document.getElementById(`${item}-quantity`);
+        quantityElement.textContent = 0;
+      }
+      // Redirect the user back to the login page
+      window.location.href = "/";
+    })
+    .catch(error => {
+      console.error('An error occurred while submitting the order:', error);
+    });
+}    // Scroll buttons functionality
+    const itemsContainer = document.querySelector('.items');
+    const scrollLeftButton = document.querySelector('.scroll-button.left');
+    const scrollRightButton = document.querySelector('.scroll-button.right');
+    const scrollDistance = 400; // Adjust as needed
+
+    scrollLeftButton.addEventListener('click', () => {
+        itemsContainer.scrollBy(-scrollDistance, 0);
+    });
+
+    scrollRightButton.addEventListener('click', () => {
+        itemsContainer.scrollBy(scrollDistance, 0);
+    });
+    function scrollItems(direction) {
+        const scrollContainer = document.querySelector('.items');
+        const scrollAmount = 400; // Adjust this value to control the scroll amount
+        
+        if (direction === 'left') {
+            scrollContainer.scrollBy({
+                left: -scrollAmount,
+                behavior: 'smooth'
+            });
+        } else if (direction === 'right') {
+            scrollContainer.scrollBy({
+                left: scrollAmount,
+                behavior: 'smooth'
+            });
+        }
+    }
+</script>
+</body>
+</html>

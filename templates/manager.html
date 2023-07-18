@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Manager Page</title>
+  <style>
+    body {
+      background-image: url("/static/img/foods.jpg");
+          background-repeat: no-repeat;
+          background-size: cover;
+          background-position: center;
+          background-color: #f1f1f1;
+          font-family: Arial, sans-serif;
+          margin: 0;
+      }
+    body, html {
+      height: 100%;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #ffffff;
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .manager-page {
+      margin-bottom: 20px;
+      
+    }
+
+    .customer-box {
+      margin-bottom: 20px;
+      padding: 10px;
+      background-color: #ffffff;
+      border: 1px solid #ddd;
+    }
+
+    .customer-id {
+      font-weight: bold;
+      margin-bottom: 10px;
+      text-align: center;
+      color: #005aaa;
+      font-size: 18px;
+    }
+
+    .food-items {
+      margin-top: 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 16px;
+      color: #333333;
+    }
+
+    table th,
+    table td {
+      padding: 10px;
+      text-align: center;
+      border: 1px solid #ddd;
+    }
+
+    table th {
+      background-color: #f2f2f2;
+      font-weight: bold;
+      color: #333333;
+    }
+
+    table tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    table tr:hover {
+      background-color: #e9e9e9;
+    }
+
+    .generate-report {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .generate-report button {
+      background-color: #ff5500;
+      color: #ffffff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    .generate-report button:hover {
+      background-color: #ff3300;
+    }
+
+    .payment-buttons {
+      display: flex;
+      justify-content: center;
+    }
+
+    .payment-buttons button {
+      margin-right: 10px;
+      background-color: #ff5500;
+      color: #ffffff;
+      padding: 5px 10px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .payment-buttons button:hover {
+      background-color: #ff3300;
+    }
+  </style>
+</head>
+<body>
+  <div class="manager-page">
+    <h1>Manager Page</h1>
+    {% for customer in customers %}
+    <div class="customer-box">
+      <div class="customer-id">Customer ID: <span style="color: #005aaa;">{{ customer.customer_id }}</span></div>
+      <div class="food-items">
+        <table>
+          <thead>
+            <tr>
+              <th style="color: #333333;">Food Item</th>
+              <th style="color: #333333;">Quantity</th>
+              <th style="color: #333333;">Price</th>
+              <th style="color: #333333;">Status</th>
+              <th style="color: #333333;">Option</th>
+              <th style="color: #333333;">Verification</th>
+              <th style="color: #333333;">Payment</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for order in customer.orders %}
+            <tr>
+              <td>{{ order.item_name }}</td>
+              <td>{{ order.quantity }}</td>
+              <td>{{ order.price }}</td>
+              <td>{{ order.Payment }}</td>
+              <td>{{ order.Option }}</td>
+              <td>{{ order.Verification }}</td>
+              <td>
+                <div class="payment-buttons">
+                  <button class="payment-buttons">Paid</button>
+                </div>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <div class="generate-report">
+    <button style="background-color: #ff5500; color: #ffffff;">Generate Report</button>
+  </div>
+  <script>
+  const eventSource = new EventSource('/stream');
+
+eventSource.onmessage = function(event) {
+  const order = JSON.parse(event.data);
+
+  // Create customer box
+  const customerBox = document.createElement('div');
+  customerBox.classList.add('customer-box');
+
+  // Create customer ID
+  const customerID = document.createElement('div');
+  customerID.classList.add('customer-id');
+  customerID.innerHTML = 'Customer ID: <span style="color: #005aaa;">' + order.customer_id + '</span>';
+  customerBox.appendChild(customerID);
+
+  // Create food items table
+  const foodItems = document.createElement('div');
+  foodItems.classList.add('food-items');
+  const table = document.createElement('table');
+  const thead = document.createElement('thead');
+  const tbody = document.createElement('tbody');
+  const headerRow = document.createElement('tr');
+  const foodItemHeader = document.createElement('th');
+  foodItemHeader.textContent = 'Food Item';
+  const quantityHeader = document.createElement('th');
+  quantityHeader.textContent = 'Quantity';
+  const priceHeader = document.createElement('th');
+  priceHeader.textContent = 'Price';
+  const statusHeader = document.createElement('th');
+  statusHeader.textContent = 'Status';
+  const optionHeader = document.createElement('th');
+  optionHeader.textContent = 'Option';
+  const verificationHeader = document.createElement('th');
+  verificationHeader.textContent = 'Verification';
+  const paymentHeader = document.createElement('th');
+  paymentHeader.textContent = 'Payment';
+  headerRow.appendChild(foodItemHeader);
+  headerRow.appendChild(quantityHeader);
+  headerRow.appendChild(priceHeader);
+  headerRow.appendChild(statusHeader);
+  headerRow.appendChild(optionHeader);
+  headerRow.appendChild(verificationHeader);
+  headerRow.appendChild(paymentHeader);
+  thead.appendChild(headerRow);
+
+  // Create food item rows
+  for (let i = 0; i < order.food_items.length; i++) {
+    const foodItemRow = document.createElement('tr');
+    const foodItemCell = document.createElement('td');
+    foodItemCell.textContent = order.food_items[i];
+    const quantityCell = document.createElement('td');
+    quantityCell.textContent = order.quantities[i];
+    const priceCell = document.createElement('td');
+    priceCell.textContent = order.prices[i];
+    const statusCell = document.createElement('td');
+    statusCell.textContent = order.statuses[i];
+    const optionCell = document.createElement('td');
+    optionCell.textContent = order.options[i];
+    const verificationCell = document.createElement('td');
+    verificationCell.textContent = order.verifications[i];
+    const paymentCell = document.createElement('td');
+    paymentCell.textContent = order.payments[i];
+
+    foodItemRow.appendChild(foodItemCell);
+    foodItemRow.appendChild(quantityCell);
+    foodItemRow.appendChild(priceCell);
+    foodItemRow.appendChild(statusCell);
+    foodItemRow.appendChild(optionCell);
+    foodItemRow.appendChild(verificationCell);
+    foodItemRow.appendChild(paymentCell);
+
+    tbody.appendChild(foodItemRow);
+  }
+
+  table.appendChild(thead);
+  table.appendChild(tbody);
+  foodItems.appendChild(table);
+  customerBox.appendChild(foodItems);
+
+  // Append the customer box to the manager page
+  const managerPage = document.querySelector('.manager-page');
+  managerPage.appendChild(customerBox);
+};
+
+
+</script>
+</body>
+</html>

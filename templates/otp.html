@@ -1,0 +1,77 @@
+<html>
+    <head>
+        <title>OTP Generation</title>
+    </head>
+    <body>
+        <style>
+            .body{
+                margin: 0;
+                padding: 0;
+                font-family: arial, sans-serif;
+                background-color: #ffffff;
+                color: #000000;
+            }
+    
+            .bgimage{
+                background-image: url("foods.jpg");
+                height: 100%;
+                width: 100%;
+                background-size: cover; /* make picture to fit to screen */
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+    
+            .container{
+                background-color: rgba(0, 0, 0, 0.6);
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                color: #ffffff;
+            }
+    
+            .button{
+                background-color: #5cc015d1;
+                margin-bottom: 30px;
+                border-radius: 25px;
+                border: none;
+                padding-top: 8px;
+                padding-bottom: 8px;
+                padding-left: 35px;
+                padding-right: 35px;
+                font-size: 20px;
+                cursor: pointer;
+            }
+
+            .otp {
+                width: 270px;
+                margin-left: 20px;
+                margin-right: 20px;
+                margin-bottom: 20px;
+                padding-top: 5px;
+                padding-bottom: 5px;
+                padding-left: 5px;
+                font-size: 20px;
+            }
+        
+            h2{
+                color: #ffffff;
+            }
+
+            a{
+                text-decoration: none;
+                color: #000000;
+                font-size: 23px;
+            }
+
+
+        </style>
+        <div class="bgimage">
+            <div class="container">
+                <h2>OTP is sent to mail</h2>
+                <input class="otp" type="text" placeholder="Enter OTP" required>
+                <button class="button" type="button"><a href="thank_you.html">Submit</a></button>
+            </div>
+        </div>
+    </body>
+</html>

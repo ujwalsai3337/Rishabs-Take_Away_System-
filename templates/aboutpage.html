@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>RISHABS FOOD COURT</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/food.css') }}"/>
+    <style>
+      /* Added CSS styles for modified lines */
+        /* Added CSS styles for modified lines */
+        body {
+          background-color: #f1f1f1;
+          font-family: Arial, sans-serif;
+          background-image: url("/static/img/foods.jpg");
+          background-repeat: no-repeat;
+          background-size: cover;
+          background-position: center;
+          margin: 0;
+          padding: 0;
+      }
+      
+      h1 {
+          text-align: center;
+          font-size: 36px;
+          color: #ffffff;
+          margin: 20px 0;
+          opacity: 0.9;
+      }
+      
+      nav {
+          background-color: #ff5500;
+          padding-top: 10px;
+          text-align: center;
+          padding-bottom: 10px;
+          margin-bottom: 70px;
+          height: 54px;
+          opacity: 0.9;
+      }
+      
+      nav ul {
+          list-style-type: none;
+          margin: 5px;
+          padding: 5px;
+      }
+      
+      nav ul li {
+          display: inline-block;
+          margin-right: 10px;
+      }
+      
+      nav ul li a {
+          color: #ffffff;
+          text-decoration: none;
+          padding: 10px 10px;
+          font-weight: bold;
+          text-transform: uppercase;
+      }
+      
+      .container {
+          max-width: 800px;
+          margin: 40px auto;
+          text-align: center;
+          padding: 40px;
+          background-color: #ffffff;
+          border-radius: 10px;
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+  
+  
+      p {
+          font-size: 20px;
+          margin-bottom: 20px;
+          color: #333333;
+      }
+  
+      .cta-button {
+          display: inline-block;
+          background-color: #ff5500;
+          color: #ffffff;
+          padding: 12px 30px;
+          font-size: 24px;
+          text-decoration: none;
+          border-radius: 6px;
+          transition: background-color 0.3s ease;
+      }
+  
+      .cta-button:hover {
+          background-color: #ff3300;
+      }
+      footer {
+        background-color: #f5f5f5;
+        padding: 10px;
+        text-align: center;
+        font-size: 14px;
+      }
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <h1>RISHABS FOOD COURT</h1>
+</head>
+<nav>
+    <ul>
+      <li><a href="/home">Home</a></li>
+      <li><a href="/dashboard">Menu</a></li>
+      <li><a href="/contact">Contacts</a></li>
+      <li><a href="/">Logout</a></li> 
+      <li><a href="/aboutpage">About</a></li>
+    </ul>
+</nav>
+<body>
+  <div class="container">
+
+    <h1 style="color: #ff5500;">About RISHAB'S FOOD COURT</h1>
+    <p>RISHAB'S FOOD COURT is located near the admin block in SSN College of Engineering. It offers a wide variety of dishes to cater to different tastes.</p>
+    <p>The food court provides the following meal timings:</p>
+    <ul>
+      <p>Breakfast: 7:30 am to 10:45 am</p>
+      <p>Lunch: 11:00 am to 2:00 pm</p>
+      <p>Juice and other items: 9:00 am to 9:00 pm</p>
+      <p>Dinner: 7:00 pm to 9:00 pm</p>
+    </ul>
+    <h1 style="color: #ff5500;">About SSN College of Engineering</h1>
+    <p>Sri Sivasubramaniya Nadar (SSN), founded by Mr. Shiv Nadar, Chairman, HCL Technologies, stands out as a premier center of higher learning with a mission of pursuing excellence in education and research. The institutions, with their diverse and dynamic community of students offer a distinctive combination of some of the finest graduate, undergraduate and research programs, accomplished faculty, world class facilities and a residential campus set on a sprawling 250 acres of sylvan surroundings.</p>
+  </div>
+  <footer>
+    <p>&copy; 2023 The Restaurant. All rights reserved.</p>
+  </footer>
+</body>
+
+</html>
