@@ -1,46 +1,47 @@
-// Login Form Submit Handler
-document.getElementById("loginForm").addEventListener("submit", function(event) {
+// Function to handle form submission and AJAX request
+function handleFormSubmit(formId, url, requestData) {
+  var form = document.getElementById(formId);
+  
+  form.addEventListener("submit", function(event) {
     event.preventDefault();
     
-    // Get the form values
-    var username = document.getElementById("username").value;
-    var password = document.getElementById("password").value;
+    // Collect form data
+    var formData = {};
+    var formElements = form.elements;
+    for (var i = 0; i < formElements.length; i++) {
+      var element = formElements[i];
+      if (element.tagName === "INPUT") {
+        formData[element.id] = element.value;
+      }
+    }
     
-    // Perform login logic (e.g., validate credentials with API)
-    // You can make an AJAX request to the Flask API here
-    
-    // Reset the form
-    this.reset();
+    // Perform AJAX request
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log('Success:', data);
+      // Handle success scenario (e.g., show success message)
+      form.reset(); // Reset form after successful submission
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      // Handle error scenario (e.g., show error message)
+    });
   });
-  
-  // Sign Up Form Submit Handler
-  document.getElementById("signupForm").addEventListener("submit", function(event) {
-    event.preventDefault();
-    
-    // Get the form values
-    var username = document.getElementById("username").value;
-    var email = document.getElementById("email").value;
-    var password = document.getElementById("password").value;
-    var confirmPassword = document.getElementById("confirmPassword").value;
-    
-    // Perform sign up logic (e.g., send data to the Flask API)
-    // You can make an AJAX request to the Flask API here
-    
-    // Reset the form
-    this.reset();
-  });
-  
-  // Forget Password Form Submit Handler
-  document.getElementById("forgetPasswordForm").addEventListener("submit", function(event) {
-    event.preventDefault();
-    
-    // Get the form values
-    var email = document.getElementById("email").value;
-    
-    // Perform forget password logic (e.g., send email to reset password)
-    // You can make an AJAX request to the Flask API here
-    
-    // Reset the form
-    this.reset();
-  });
-  
+}
+
+// Attach handlers for each form
+handleFormSubmit("loginForm", "/login", {});
+handleFormSubmit("signupForm", "/signup", {});
+handleFormSubmit("forgetPasswordForm", "/forget-password", {});
